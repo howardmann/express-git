@@ -1,13 +1,29 @@
 var express = require('express');
 var path = require('path');
-var http = require('http');
+var exphbs = require('express-handlebars');
 
 var app = express();
 
 app.use(express.static(path.resolve(__dirname, "public")));
 
+app.engine('hbs', exphbs({defaultLayout: 'layout.hbs'}));
+app.set('view engine', 'hbs');
+
 app.get('/', function(req, res, next){
-  res.render('index');
+  res.render('index', {
+    name: 'Howie Mann'
+  });
+});
+
+app.get('/about', function(req, res, next){
+  res.render('about', {
+    people: [
+      {name: 'Howie Mann', age: 23},
+      {name: 'Hela Mann', age: 23},
+      {name: 'Felix Mann', age: 0},
+      {name: 'James Bond', age: 78}
+    ]
+  })
 });
 
 app.use(function(req, res){
