@@ -26,6 +26,14 @@ app.get('/about', function(req, res, next){
   })
 });
 
+app.get('/person', function(req, res, next) {
+  res.json({
+    name: 'Howie Mann',
+    age: 23,
+    race: 'awesome'
+  });
+});
+
 app.use(function(req, res){
   res.status(404).send('404 error');
 });

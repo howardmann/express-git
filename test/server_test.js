@@ -49,9 +49,9 @@ describe('Person', function(){
         res.should.have.status(200);
         res.should.be.json;
         res.body.should.have.property('name');
-        res.body.name.equal('Howie Mann');
+        res.body.name.should.equal('Howie Mann');
         res.body.should.have.property('age');
-        res.body.name.equal(23);
+        res.body.age.should.equal(23);
         res.body.should.have.property('race');
         res.body.race.should.equal('awesome');
         done();
