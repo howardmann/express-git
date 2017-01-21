@@ -41,6 +41,24 @@ describe('About', function(){
   })
 });
 
+describe('Person', function(){
+  it('should load PERSON json on /person GET', function(done){
+    chai.request(app)
+      .get('/person')
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.have.property('name');
+        res.body.name.equal('Howie Mann');
+        res.body.should.have.property('age');
+        res.body.name.equal(23);
+        res.body.should.have.property('race');
+        res.body.race.should.equal('awesome');
+        done();
+      })
+  })
+});
+
 describe('Error', function(){
   it('should send 404 error on any invalid / GET', function(done){
     chai.request(app)
