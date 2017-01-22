@@ -6,6 +6,38 @@ var app = require('../server.js');
 
 chai.use(chaiHttp);
 
+describe('Layout', function(){
+  it('should load LAYOUT html on / GET', function(done){
+    chai.request(app)
+      .get('/')
+      .end(function(err, res){
+        var $ = cheerio.load(res.text);
+        res.should.have.status(200);
+        $('h1').text().should.equal('Express app');
+        $('nav a').eq(0).text().should.equal('Home');
+        $('nav a').eq(0).attr('href').should.equal('/');
+        $('nav a').eq(1).text().should.equal('About');
+        $('nav a').eq(1).attr('href').should.equal('/about');
+        done();
+      })
+  });
+
+  it('should load LAYOUT html on /about GET', function(done){
+    chai.request(app)
+      .get('/about')
+      .end(function(err, res){
+        var $ = cheerio.load(res.text);
+        res.should.have.status(200);
+        $('h1').text().should.equal('Express app')
+        $('nav a').eq(0).text().should.equal('Home');
+        $('nav a').eq(0).attr('href').should.equal('/');
+        $('nav a').eq(1).text().should.equal('About');
+        $('nav a').eq(1).attr('href').should.equal('/about');
+        done();
+      })
+  });
+});
+
 describe('Index', function(){
   it('should load INDEX html on / GET', function(done){
     chai.request(app)
