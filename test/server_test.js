@@ -59,6 +59,22 @@ describe('Person', function(){
   })
 });
 
+describe('Dynamic', function(){
+  it('should load DYNAMIC html on /dynamic/:name GET', function(done){
+    chai.request(app)
+      .get('/dynamic/howie')
+      .end(function(err, res){
+        var $ = cheerio.load(res.text);
+
+        res.should.have.status(200);
+        res.should.be.html;
+        $('h2').text().should.equal('Dynamic page');
+        $('p').text().should.equal('Hello howie');
+        done();
+      });
+  });
+});
+
 describe('Error', function(){
   it('should send 404 error on any invalid / GET', function(done){
     chai.request(app)
